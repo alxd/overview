@@ -322,7 +322,7 @@ void CGameEngine::RenderFrame(int nMilliseconds)
 	m_fFont.Print(szBuffer);
 */
 
-	sampleViewer->Display();
+	//sampleViewer->Display();
 
 	m_fFont.End();
 	glFlush();
