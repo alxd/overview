@@ -63,7 +63,7 @@ IDR_APPLICATION         ICON    DISCARDABLE     "icon1.ico"
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    IDS_APPLICATION         "GLTest"
+    IDS_APPLICATION         "Blue Marble Overview"
 END
 
 #endif    // English (U.S.) resources

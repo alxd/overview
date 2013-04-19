@@ -296,6 +296,7 @@ void CGameEngine::RenderFrame(int nMilliseconds)
 	m_fFont.SetPosition(0, 0);
 	m_fFont.Print(szFrameCount);
 	m_fFont.SetPosition(0, 15);
+/*
 	sprintf(szBuffer, "Samples (+/-): %d", m_nSamples);
 	m_fFont.Print(szBuffer);
 	m_fFont.SetPosition(0, 30);
@@ -319,6 +320,7 @@ void CGameEngine::RenderFrame(int nMilliseconds)
 	m_fFont.SetPosition(0, 120);
 	sprintf(szBuffer, "Blue (F11/Sh+F11): %-3.3f", m_fWavelength[2]);
 	m_fFont.Print(szBuffer);
+*/
 	m_fFont.End();
 	glFlush();
 }
