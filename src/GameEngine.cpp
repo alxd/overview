@@ -33,9 +33,9 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "GameEngine.h"
 #include "GLUtil.h"
 
-
-CGameEngine::CGameEngine()
+CGameEngine::CGameEngine(SampleViewer * s)
 {
+	sampleViewer = s;
 	m_bShowTexture = false;
 
 	//GetApp()->MessageBox((const char *)glGetString(GL_EXTENSIONS));
@@ -321,6 +321,9 @@ void CGameEngine::RenderFrame(int nMilliseconds)
 	sprintf(szBuffer, "Blue (F11/Sh+F11): %-3.3f", m_fWavelength[2]);
 	m_fFont.Print(szBuffer);
 */
+
+	//sampleViewer->Display();
+
 	m_fFont.End();
 	glFlush();
 }

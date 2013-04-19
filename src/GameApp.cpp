@@ -31,7 +31,6 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "Master.h"
 #include "GameApp.h"
 #include "GameEngine.h"
-#include "Viewer.h"
 
 
 CWinApp *CWinApp::m_pMainApp;
@@ -53,23 +52,6 @@ bool CGameApp::InitInstance()
 		MessageBox("Unable to register window class, aborting.");
 		return false;
 	}
-
-	openni::Status rc = openni::STATUS_OK;
-
-	
-	SampleViewer sampleViewer("User Viewer");
-
-	
-	char *argv[2]; 
-	rc = sampleViewer.Init(1, argv); // no arguments
-	if (rc != openni::STATUS_OK)
-	{
-		//return 1;					// don't exit because we want to show something even if there's no sensor connected
-		printf("status not ok");
-	}
-	
-	//sampleViewer.Run(); // don't run yet before stripping opengl main loop
-
 	
 	return InitMode(false, 640, 480);
 }
@@ -172,7 +154,22 @@ int CGameApp::OnCreate(HWND hWnd)
 		return -1;
 	}
 
-	m_pGameEngine = new CGameEngine;
+
+	openni::Status rc = openni::STATUS_OK;
+
+	SampleViewer sampleViewernew("User Viewer");
+
+	char *argv[2]; 
+	rc = sampleViewernew.Init(1, argv); // no arguments
+	if (rc != openni::STATUS_OK)
+	{
+		//return 1;					// don't exit because we want to show something even if there's no sensor connected
+		printf("status not ok");
+	}
+	
+	//sampleViewer.Run(); // don't run yet before stripping opengl main loop
+
+	m_pGameEngine = new CGameEngine(&sampleViewernew);
 	return 0;
 }
 

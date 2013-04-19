@@ -35,6 +35,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "GameApp.h"
 #include "Texture.h"
 #include "Font.h"
+#include "Viewer.h"
 
 
 #define SAMPLE_SIZE		5
@@ -194,9 +195,10 @@ protected:
 
 	CSphere m_sphereInner;
 	CSphere m_sphereOuter;
+	SampleViewer * sampleViewer;
 
 public:
-	CGameEngine();
+	CGameEngine(SampleViewer * s);
 	~CGameEngine();
 	void RenderFrame(int nMilliseconds);
 	void Pause()	{}

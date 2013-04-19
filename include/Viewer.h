@@ -21,7 +21,7 @@ public:
 	virtual openni::Status Init(int argc, char **argv);
 	virtual openni::Status Run();	//Does not return
 
-protected:
+public:
 	virtual void Display();
 	virtual void DisplayPostDraw(){};	// Overload to draw over the screen image
 
@@ -32,10 +32,11 @@ protected:
 
 	void Finalize();
 
-private:
+public:
 	SampleViewer(const SampleViewer&);
 	SampleViewer& operator=(SampleViewer&);
-
+	SampleViewer();
+private:	
 	static SampleViewer* ms_self;
 	static void glutIdle();
 	static void glutDisplay();

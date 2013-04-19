@@ -28,6 +28,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "Viewer.h"
+
 #ifndef __GameApp_h__
 #define __GameApp_h__
 
@@ -51,6 +53,8 @@ protected:
 	int m_nWidth, m_nHeight;
 
 	CGameEngine *m_pGameEngine;
+
+	
 
 // Operations
 protected:
@@ -83,6 +87,7 @@ public:
 
 	int GetWidth()	{ return m_nWidth; }
 	int GetHeight()	{ return m_nHeight; }
+
 };
 
 inline CGameApp *GetGameApp()		{ return (CGameApp *)GetApp(); }
