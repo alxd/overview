@@ -13,6 +13,12 @@
       <UniqueIdentifier>{c0ccabf3-55ed-45c0-b29e-c7a92d6abb6c}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
+    <Filter Include="Header Files\openGL">
+      <UniqueIdentifier>{019e416b-3aaf-402f-bfa9-aae1c233329f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\nite">
+      <UniqueIdentifier>{3d27cd3b-9d57-4c77-ba06-72009063abb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AtmosphereTest.rc">
@@ -20,66 +26,79 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GLUtil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Master.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Noise.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Font.h">
+    <ClInclude Include="openGL\gl.h">
+      <Filter>Header Files\openGL</Filter>
+    </ClInclude>
+    <ClInclude Include="openGL\glext.h">
+      <Filter>Header Files\openGL</Filter>
+    </ClInclude>
+    <ClInclude Include="openGL\glui.h">
+      <Filter>Header Files\openGL</Filter>
+    </ClInclude>
+    <ClInclude Include="openGL\glut.h">
+      <Filter>Header Files\openGL</Filter>
+    </ClInclude>
+    <ClInclude Include="openGL\wglext.h">
+      <Filter>Header Files\openGL</Filter>
+    </ClInclude>
+    <ClInclude Include="IncludeNite\NiTE.h">
+      <Filter>Header Files\nite</Filter>
+    </ClInclude>
+    <ClInclude Include="IncludeNite\NiteCAPI.h">
+      <Filter>Header Files\nite</Filter>
+    </ClInclude>
+    <ClInclude Include="IncludeNite\NiteCEnums.h">
+      <Filter>Header Files\nite</Filter>
+    </ClInclude>
+    <ClInclude Include="IncludeNite\NiteCTypes.h">
+      <Filter>Header Files\nite</Filter>
+    </ClInclude>
+    <ClInclude Include="IncludeNite\NiteEnums.h">
+      <Filter>Header Files\nite</Filter>
+    </ClInclude>
+    <ClInclude Include="IncludeNite\NiteVersion.h">
+      <Filter>Header Files\nite</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameApp.h">
+    <ClInclude Include="include\GameApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngine.h">
+    <ClInclude Include="include\GameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GLUtil.h">
+    <ClInclude Include="include\GLUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListTemplates.h">
+    <ClInclude Include="include\ListTemplates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Master.h">
+    <ClInclude Include="include\Master.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.h">
+    <ClInclude Include="include\Matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Noise.h">
+    <ClInclude Include="include\Noise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PixelBuffer.h">
+    <ClInclude Include="include\PixelBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="include\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="include\Viewer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WndClass.h">
+    <ClInclude Include="include\wglext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WndClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -87,5 +106,34 @@
     <CustomBuild Include="icon1.ico">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GameApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Master.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Noise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PixelBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Viewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

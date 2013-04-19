@@ -1,9 +1,9 @@
-﻿Build started 19/04/2013 10:21:52.
-     1>Project "c:\Users\alex\Documents\My Box Files\src\atm_scattering_2004_oneil\src\AtmosphereTest.vcxproj" on node 2 (clean target(s)).
+﻿Build started 19/04/2013 16:56:20.
+     1>Project "c:\Users\alex\Documents\My Box Files\src\spaceapps\overview\AtmosphereTest.vcxproj" on node 2 (clean target(s)).
      1>_PrepareForClean:
          Deleting file ".\Debug\AtmosphereTest.lastbuildstate".
-     1>Done Building Project "c:\Users\alex\Documents\My Box Files\src\atm_scattering_2004_oneil\src\AtmosphereTest.vcxproj" (clean target(s)).
+     1>Done Building Project "c:\Users\alex\Documents\My Box Files\src\spaceapps\overview\AtmosphereTest.vcxproj" (clean target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.11
+Time Elapsed 00:00:00.10
