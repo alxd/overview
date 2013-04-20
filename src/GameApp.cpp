@@ -32,6 +32,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "GameApp.h"
 #include "GameEngine.h"
 
+#define _DEBUG 1
 
 CWinApp *CWinApp::m_pMainApp;
 
@@ -52,7 +53,7 @@ bool CGameApp::InitInstance()
 		MessageBox("Unable to register window class, aborting.");
 		return false;
 	}
-	
+
 	return InitMode(false, 640, 480);
 }
 
@@ -103,7 +104,7 @@ void CGameApp::Pause()
 	if(m_bActive)
 	{
 #ifndef _DEBUG
-		//SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_LOWEST);
+		SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_LOWEST);
 #endif
 		m_pGameEngine->Pause();
 		m_bActive = false;
@@ -115,7 +116,7 @@ void CGameApp::Restore()
 	if(!m_bActive)
 	{
 #ifndef _DEBUG
-		//SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
+		SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
 #endif
 		m_bActive = true;
 		m_nTimer = timeGetTime();
@@ -155,21 +156,24 @@ int CGameApp::OnCreate(HWND hWnd)
 	}
 
 
-	openni::Status rc = openni::STATUS_OK;
+		// openNI here
 
-	SampleViewer sampleViewernew("User Viewer");
+		openni::Status rc = openni::STATUS_OK;
+		SampleViewer sampleViewernew("User Viewer");
 
-	char *argv[2]; 
-	rc = sampleViewernew.Init(1, argv); // no arguments
-	if (rc != openni::STATUS_OK)
-	{
-		//return 1;					// don't exit because we want to show something even if there's no sensor connected
-		printf("status not ok");
-	}
+		char *argv[2]; 
+		rc = sampleViewernew.Init(1, argv); // no arguments
+		if (rc != openni::STATUS_OK)
+		{
+			//return 1;					// don't exit because we want to show something even if there's no sensor connected
+			printf("status not ok");
+		}
 	
-	//sampleViewer.Run(); // don't run yet before stripping opengl main loop
+		m_pGameEngine = new CGameEngine(&sampleViewernew);
+		//sampleViewernew.Run(); // don't run yet before stripping opengl main loop
+		//glutDisplayFunc(CGameEngine::RenderFrameStatic);
 
-	m_pGameEngine = new CGameEngine(&sampleViewernew);
+
 	return 0;
 }
 
