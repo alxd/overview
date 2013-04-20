@@ -197,6 +197,14 @@ protected:
 	CSphere m_sphereOuter;
 	SampleViewer * sampleViewer;
 
+	bool initial, headFront, headBack, headLeft, headRight, handLeft, handRight;
+	int skip, jointIdx;
+
+	nite::SkeletonJoint jointHistoryH[1000], jointHistoryRH[1000];
+	float initialH_x, initialRH_x;
+	float initialH_z, initialRH_z;
+
+
 public:
 	CGameEngine(SampleViewer * s);
 	~CGameEngine();

@@ -73,6 +73,12 @@ CGameEngine::CGameEngine(SampleViewer * s)
 
 	m_sphereInner.Init(m_fInnerRadius, 50, 50);
 	m_sphereOuter.Init(m_fOuterRadius, 100, 100);
+
+	headFront = headBack = headLeft = headRight = handLeft = handRight = false;
+
+	skip = jointIdx = 0;
+//	float initialH_x, initialHR_x;
+//	float initialH_z, initialHR_z;
 }
 
 CGameEngine::~CGameEngine()
@@ -339,6 +345,67 @@ if (rc != nite::STATUS_OK)
 	const nite::UserMap& userLabels = userTrackerFrame.getUserMap();
 
 	const nite::Array<nite::UserData>& users = userTrackerFrame.getUsers();
+	
+	
+	float x,y,z;
+	x = y = z = 0;
+
+	skip++;
+	if (users.getSize() > 0)
+	if (skip%30==0) {
+		if (jointIdx < 500) {
+			jointIdx++;
+			skip = 1;
+		}
+		else
+			jointIdx = 0;
+
+		nite::SkeletonJoint jh = users[0].getSkeleton().getJoint(nite::JOINT_HEAD);
+		nite::SkeletonJoint jrh = users[0].getSkeleton().getJoint(nite::JOINT_RIGHT_HAND);
+			 
+		if (jh.getPositionConfidence() > 0.5f)  {
+			x = jh.getPosition().x;	y = jh.getPosition().y;	z = jh.getPosition().z;
+			jointHistoryH[jointIdx] = jh;
+
+			if (initial) {
+				initialH_x = x;
+				initialH_z = z;
+				initial = false;
+			}
+		}
+
+		if (abs(z - initialH_z) > 100)
+			if (initialH_z > z)
+				headFront = true;
+			else
+				headBack = true;
+
+		if (abs(x - initialH_x) > 100)
+			if (initialH_x > x)
+				headRight = true;
+			else
+				headLeft = true;
+
+		if (jrh.getPositionConfidence() > 0.5f)  {
+			x = jrh.getPosition().x;	y = jrh.getPosition().y;	z = jrh.getPosition().z;
+			jointHistoryRH[jointIdx] = jrh;
+
+			if (initial) {
+				initialRH_x = x;
+				initialRH_z = z;
+				initial = false;
+			}
+		}	
+
+		if (abs(x - initialRH_x) > 100)
+			if (initialRH_x > x)
+				handRight = true;
+			else
+				handLeft  = true;
+	}
+	
+
+	/*
 	for (int i = 0; i < users.getSize(); ++i)
 	{
 		const nite::UserData& user = users[i];
@@ -360,9 +427,9 @@ if (rc != nite::STATUS_OK)
 
 
 	}
-
+	*/
 	
-	sprintf(szBuffer, "Users: %d", users.getSize());
+	sprintf(szBuffer, "Users: %d  hf:%d hb:%d hl:%d hr:%d hal:%d har:%d ", users.getSize(), headFront, headBack, headLeft, headRight, handLeft, handRight);
 	m_fFont.Print(szBuffer);
 	m_fFont.End();
 	glFlush();
