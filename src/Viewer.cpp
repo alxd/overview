@@ -80,7 +80,7 @@ openni::Status SampleViewer::Init(int argc, char **argv)
 		sprintf(m_error,"Failed to initialize OpenNI: %s\n", openni::OpenNI::getExtendedError());
 		return rc;
 	}
-	sprintf(m_error,"Initialize OpenNI");
+	sprintf(m_error,"Initialized OpenNI");
 
 	const char* deviceUri = openni::ANY_DEVICE;
 	for (int i = 1; i < argc-1; ++i)
@@ -98,13 +98,17 @@ openni::Status SampleViewer::Init(int argc, char **argv)
 		printf("Failed to open device\n%s\n", openni::OpenNI::getExtendedError());
 		return rc;
 	}
+	sprintf(m_error,"Initialized OpenNI and opened device");
 
 	nite::NiTE::initialize();
 
 	if (m_pUserTracker->create(&m_device) != nite::STATUS_OK)
 	{
+		sprintf(m_error,"Initialized OpenNI, opened device, and could not init NiTE");
 		return openni::STATUS_ERROR;
+		
 	}
+	sprintf(m_error,"Initialized OpenNI, opened device, and created UserTracker");
 
 
 	//return InitOpenGL(argc, argv); // the other atm scatt. already initializes openGL
