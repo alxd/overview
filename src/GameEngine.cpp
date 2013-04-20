@@ -328,83 +328,6 @@ void CGameEngine::RenderFrame(int nMilliseconds)
 	sprintf(szBuffer, "Blue (F11/Sh+F11): %-3.3f", m_fWavelength[2]);
 	m_fFont.Print(szBuffer);
 */
-	//m_fFont.Print(sampleViewer->m_error);
-
-	//sampleViewer->Display();
-	nite::UserTrackerFrameRef userTrackerFrame;
-	openni::VideoFrameRef depthFrame;
-	nite::Status rc = sampleViewer->m_pUserTracker->readFrame(&userTrackerFrame);
-
-if (rc != nite::STATUS_OK)
-	{
-		printf("GetNextData failed\n");
-		return;
-	}
-
-	depthFrame = userTrackerFrame.getDepthFrame();
-	const nite::UserMap& userLabels = userTrackerFrame.getUserMap();
-
-	const nite::Array<nite::UserData>& users = userTrackerFrame.getUsers();
-	
-	
-	float x,y,z;
-	x = y = z = 0;
-
-	skip++;
-	if (users.getSize() > 0)
-	if (skip%30==0) {
-		if (jointIdx < 500) {
-			jointIdx++;
-			skip = 1;
-		}
-		else
-			jointIdx = 0;
-
-		nite::SkeletonJoint jh = users[0].getSkeleton().getJoint(nite::JOINT_HEAD);
-		nite::SkeletonJoint jrh = users[0].getSkeleton().getJoint(nite::JOINT_RIGHT_HAND);
-			 
-		if (jh.getPositionConfidence() > 0.5f)  {
-			x = jh.getPosition().x;	y = jh.getPosition().y;	z = jh.getPosition().z;
-			jointHistoryH[jointIdx] = jh;
-
-			if (initial) {
-				initialH_x = x;
-				initialH_z = z;
-				initial = false;
-			}
-		}
-
-		if (abs(z - initialH_z) > 100)
-			if (initialH_z > z)
-				headFront = true;
-			else
-				headBack = true;
-
-		if (abs(x - initialH_x) > 100)
-			if (initialH_x > x)
-				headRight = true;
-			else
-				headLeft = true;
-
-		if (jrh.getPositionConfidence() > 0.5f)  {
-			x = jrh.getPosition().x;	y = jrh.getPosition().y;	z = jrh.getPosition().z;
-			jointHistoryRH[jointIdx] = jrh;
-
-			if (initial) {
-				initialRH_x = x;
-				initialRH_z = z;
-				initial = false;
-			}
-		}	
-
-		if (abs(x - initialRH_x) > 100)
-			if (initialRH_x > x)
-				handRight = true;
-			else
-				handLeft  = true;
-	}
-	
-
 	/*
 	for (int i = 0; i < users.getSize(); ++i)
 	{
@@ -428,11 +351,123 @@ if (rc != nite::STATUS_OK)
 
 	}
 	*/
+
+
+	//m_fFont.Print(sampleViewer->m_error);
+
+	//sampleViewer->Display();
+	nite::UserTrackerFrameRef userTrackerFrame;
+	openni::VideoFrameRef depthFrame;
+	nite::Status rc = sampleViewer->m_pUserTracker->readFrame(&userTrackerFrame);
+
 	
-	sprintf(szBuffer, "Users: %d  hf:%d hb:%d hl:%d hr:%d hal:%d har:%d ", users.getSize(), headFront, headBack, headLeft, headRight, handLeft, handRight);
+	int skipAmount = int(m_fFPS)*4;		// variable skip depending on the frameRate - constant in human time
+	//int skipAmount = 300;
+
+if (rc != nite::STATUS_OK)
+	{
+		printf("GetNextData failed\n");
+		return;
+	}
+
+	depthFrame = userTrackerFrame.getDepthFrame();
+	const nite::UserMap& userLabels = userTrackerFrame.getUserMap();
+
+	const nite::Array<nite::UserData>& users = userTrackerFrame.getUsers();
+	
+	
+	float x,y,z;
+	x = y = z = 0;
+
+	skip++;
+	if (skip > 60000)
+		skip = 1;
+
+
+	if (users.getSize() > 0)
+{
+		if (jointIdx < 500) {
+			jointIdx++;
+		}
+		else
+			jointIdx = 0;
+
+		//user 0 
+		const nite::UserData& user = users[0];
+		sampleViewer->updateUserState(user, userTrackerFrame.getTimestamp());
+		if (user.isNew())
+		{
+			sampleViewer->m_pUserTracker->startSkeletonTracking(user.getId());
+			sampleViewer->m_pUserTracker->startPoseDetection(user.getId(), nite::POSE_CROSSED_HANDS);
+		}
+		else if (!user.isLost())
+		{
+
+
+		nite::SkeletonJoint jh = users[0].getSkeleton().getJoint(nite::JOINT_HEAD);
+		nite::SkeletonJoint jrh = users[0].getSkeleton().getJoint(nite::JOINT_RIGHT_HAND);
+			 
+		// HEAD
+		if (jh.getPositionConfidence() > 0.5f)  {
+			x = jh.getPosition().x;	y = jh.getPosition().y;	z = jh.getPosition().z;
+			jointHistoryH[jointIdx] = jh;
+
+			if (initial || 	skip%skipAmount ==0) {
+				initialH_x = x;
+				initialH_z = z;
+				initial = false;
+				headFront = headBack = headLeft = headRight = false;
+			}
+		}
+
+		if (abs(z - initialH_z) > 100)
+			if (initialH_z > z)
+				headFront = true;
+			else
+				headBack = true;
+
+		if (abs(x - initialH_x) > 100)
+			if (initialH_x > x)
+				headRight = true;
+			else
+				headLeft = true;
+
+		sprintf(szBuffer, "initialH_x: %.1f  x:%.1f diff X: %d   dif Z:", initialH_x, x, abs(x - initialH_x), abs(z - initialH_z));
+		m_fFont.Print(szBuffer);
+
+
+		// RIGHT HAND
+		if (jrh.getPositionConfidence() > 0.5f)  {
+			x = jrh.getPosition().x;	y = jrh.getPosition().y;	z = jrh.getPosition().z;
+			jointHistoryRH[jointIdx] = jrh;
+
+			if (initial || 	skip%skipAmount ==0)  {
+				initialRH_x = x;
+				initialRH_z = z;
+				initial = false;
+				handLeft = handRight = false;
+			}
+		}	
+
+		if (abs(x - initialRH_x) > 100)
+			if (initialRH_x > x)
+				handRight = true;
+			else
+				handLeft  = true;
+	}
+
+	}
+	
+	m_fFont.SetPosition(0, 30);
+	sprintf(szBuffer, "initialH_x: %.1f  x:%.1f   diff X: %d   dif Z:", initialRH_x, x, abs(x - initialRH_x), abs(z - initialRH_z));
+	m_fFont.Print(szBuffer);
+
+	m_fFont.SetPosition(0, 45);	
+	sprintf(szBuffer, "Users: %d  hf:%d hb:%d hl:%d hr:%d hal:%d har:%d skAmount: %d    skip: %d ", users.getSize(), headFront, headBack, headLeft, headRight, handLeft, handRight, skipAmount, skip);
 	m_fFont.Print(szBuffer);
 	m_fFont.End();
 	glFlush();
+
 
 
 }
