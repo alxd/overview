@@ -1,10 +1,41 @@
-﻿Build started 20/04/2013 11:08:45.
+﻿Build started 20/04/2013 12:01:02.
      1>Project "c:\Users\alex\Documents\My Box Files\src\spaceapps\overview\AtmosphereTest.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating ".\Debug\AtmosphereTest.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\GameApp.cpp
-         GameApp.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\GameApp.cpp src\GameEngine.cpp src\Viewer.cpp
+         Viewer.cpp
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\includeopenni\win32\oniplatformwin32.h(39): warning C4005: 'WIN32_LEAN_AND_MEAN' : macro redefinition
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\opengl\glext.h(55) : see previous definition of 'WIN32_LEAN_AND_MEAN'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(53): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(188) : see declaration of 'strncpy'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(80): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(83): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(101): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(107): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(111): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(142): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(150): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(160): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(163): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(166): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(173): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(213): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(535): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+         GameEngine.cpp
      1>c:\users\alex\documents\my box files\src\spaceapps\overview\include\wndclass.h(54): warning C4996: 'vsprintf': This function or variable may be unsafe. Consider using vsprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'vsprintf'
      1>c:\users\alex\documents\my box files\src\spaceapps\overview\include\wndclass.h(56): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
@@ -59,6 +90,29 @@
      1>c:\users\alex\documents\my box files\src\spaceapps\overview\include\gameengine.h(90): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
                  c:\users\alex\documents\my box files\src\spaceapps\overview\include\gameengine.h(82) : definition of 'i' ignored
                  c:\users\alex\documents\my box files\src\spaceapps\overview\include\gameengine.h(64) : definition of 'CSphere::i' used
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(232): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(277): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(271) : definition of 'i' ignored
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(223) : definition of 'i' used
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(277): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(271) : definition of 'i' ignored
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(223) : definition of 'i' used
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(277): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(271) : definition of 'i' ignored
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(223) : definition of 'i' used
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(279): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(271) : definition of 'i' ignored
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(223) : definition of 'i' used
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(280): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(271) : definition of 'i' ignored
+                 c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(223) : definition of 'i' used
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\gameengine.cpp(365): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+         Generating Code...
+     1>c:\users\alex\documents\my box files\src\spaceapps\overview\src\viewer.cpp(116): warning C4715: 'SampleViewer::Init' : not all control paths return a value
+         Skipping... (no relevant changes detected)
+         GameApp.cpp
        ResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -83,4 +137,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.78
+Time Elapsed 00:00:05.60

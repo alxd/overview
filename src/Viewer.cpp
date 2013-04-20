@@ -135,7 +135,7 @@ char g_generalMessage[100] = {0};
 	sprintf(g_userStatusLabels[user.getId()],"%s", msg);\
 	printf("[%08llu] User #%d:\t%s\n",ts, user.getId(),msg);}
 
-void updateUserState(const nite::UserData& user, uint64_t ts)
+void SampleViewer::updateUserState(const nite::UserData& user, uint64_t ts)
 {
 	if (user.isNew())
 	{
@@ -187,7 +187,14 @@ void glPrintString(void *font, const char *str)
 	}   
 }
 #endif
-void DrawStatusLabel(nite::UserTracker* pUserTracker, const nite::UserData& user)
+
+void SampleViewer::SetRes(openni::VideoFrameRef  depthFrame ){
+		g_nXRes = depthFrame.getVideoMode().getResolutionX();
+		g_nYRes = depthFrame.getVideoMode().getResolutionY();
+
+}
+
+void SampleViewer::DrawStatusLabel(nite::UserTracker* pUserTracker, const nite::UserData& user)
 {
 	int color = user.getId() % colorCount;
 	glColor3f(1.0f - Colors[color][0], 1.0f - Colors[color][1], 1.0f - Colors[color][2]);
@@ -208,7 +215,7 @@ void DrawFrameId(int frameId)
 	glRasterPos2i(20, 20);
 	glPrintString(GLUT_BITMAP_HELVETICA_18, buffer);
 }
-void DrawCenterOfMass(nite::UserTracker* pUserTracker, const nite::UserData& user)
+void SampleViewer::DrawCenterOfMass(nite::UserTracker* pUserTracker, const nite::UserData& user)
 {
 	glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -223,7 +230,7 @@ void DrawCenterOfMass(nite::UserTracker* pUserTracker, const nite::UserData& use
 	glDrawArrays(GL_POINTS, 0, 1);
 
 }
-void DrawBoundingBox(const nite::UserData& user)
+void SampleViewer::DrawBoundingBox(const nite::UserData& user)
 {
 	glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -251,7 +258,7 @@ void DrawBoundingBox(const nite::UserData& user)
 
 
 
-void DrawLimb(nite::UserTracker* pUserTracker, const nite::SkeletonJoint& joint1, const nite::SkeletonJoint& joint2, int color)
+void SampleViewer::DrawLimb(nite::UserTracker* pUserTracker, const nite::SkeletonJoint& joint1, const nite::SkeletonJoint& joint2, int color)
 {
 	float coordinates[6] = {0};
 	pUserTracker->convertJointCoordinatesToDepth(joint1.getPosition().x, joint1.getPosition().y, joint1.getPosition().z, &coordinates[0], &coordinates[1]);
@@ -301,7 +308,7 @@ void DrawLimb(nite::UserTracker* pUserTracker, const nite::SkeletonJoint& joint1
 	glVertexPointer(3, GL_FLOAT, 0, coordinates+3);
 	glDrawArrays(GL_POINTS, 0, 1);
 }
-void DrawSkeleton(nite::UserTracker* pUserTracker, const nite::UserData& userData)
+void SampleViewer::DrawSkeleton(nite::UserTracker* pUserTracker, const nite::UserData& userData)
 {
 	DrawLimb(pUserTracker, userData.getSkeleton().getJoint(nite::JOINT_HEAD), userData.getSkeleton().getJoint(nite::JOINT_NECK), userData.getId() % colorCount);
 
@@ -552,7 +559,7 @@ void SampleViewer::Display()
 
 	if (g_drawFrameId)
 	{
-		DrawFrameId(userTrackerFrame.getFrameIndex());
+		//DrawFrameId(userTrackerFrame.getFrameIndex());
 	}
 
 	if (g_generalMessage[0] != '\0')
@@ -566,7 +573,7 @@ void SampleViewer::Display()
 
 
 	// Swap the OpenGL display buffers
-	glutSwapBuffers();
+	//glutSwapBuffers();
 
 }
 

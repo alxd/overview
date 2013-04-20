@@ -32,6 +32,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "GameApp.h"
 #include "GameEngine.h"
 #include "GLUtil.h"
+#include "Viewer.h"
 
 CGameEngine::CGameEngine(SampleViewer * s)
 {
@@ -321,14 +322,51 @@ void CGameEngine::RenderFrame(int nMilliseconds)
 	sprintf(szBuffer, "Blue (F11/Sh+F11): %-3.3f", m_fWavelength[2]);
 	m_fFont.Print(szBuffer);
 */
-	m_fFont.Print(sampleViewer->m_error);
+	//m_fFont.Print(sampleViewer->m_error);
+
+	//sampleViewer->Display();
+	nite::UserTrackerFrameRef userTrackerFrame;
+	openni::VideoFrameRef depthFrame;
+	nite::Status rc = sampleViewer->m_pUserTracker->readFrame(&userTrackerFrame);
+
+if (rc != nite::STATUS_OK)
+	{
+		printf("GetNextData failed\n");
+		return;
+	}
+
+	depthFrame = userTrackerFrame.getDepthFrame();
+	const nite::UserMap& userLabels = userTrackerFrame.getUserMap();
+
+	const nite::Array<nite::UserData>& users = userTrackerFrame.getUsers();
+	for (int i = 0; i < users.getSize(); ++i)
+	{
+		const nite::UserData& user = users[i];
+
+		sampleViewer->updateUserState(user, userTrackerFrame.getTimestamp());
+		if (user.isNew())
+		{
+			sampleViewer->m_pUserTracker->startSkeletonTracking(user.getId());
+			sampleViewer->m_pUserTracker->startPoseDetection(user.getId(), nite::POSE_CROSSED_HANDS);
+		}
+		else if (!user.isLost())
+		{
+				sampleViewer->SetRes(depthFrame);
+				sampleViewer->DrawStatusLabel(sampleViewer->m_pUserTracker, user); // div by 0
+				sampleViewer->DrawCenterOfMass(sampleViewer->m_pUserTracker, user);
+				sampleViewer->DrawBoundingBox(user);
+				sampleViewer->DrawSkeleton(sampleViewer->m_pUserTracker, user);
+		}
+
+
+	}
+
+	
+	sprintf(szBuffer, "Users: %d", users.getSize());
+	m_fFont.Print(szBuffer);
 	m_fFont.End();
 	glFlush();
 
-	//sampleViewer->Display();
-	//nite::UserTrackerFrameRef userTrackerFrame;
-	//openni::VideoFrameRef depthFrame;
-	//nite::Status rc = sampleViewer->m_pUserTracker->readFrame(&userTrackerFrame);
 
 }
 

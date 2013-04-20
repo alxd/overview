@@ -31,6 +31,12 @@ public:
 	void InitOpenGLHooks();
 
 	void Finalize();
+	void SampleViewer::SetRes(openni::VideoFrameRef depthFrame );
+	void DrawStatusLabel(nite::UserTracker* pUserTracker, const nite::UserData& user);
+	void DrawCenterOfMass(nite::UserTracker* pUserTracker, const nite::UserData& user);
+	void DrawBoundingBox(const nite::UserData& user);
+	void DrawSkeleton(nite::UserTracker* pUserTracker, const nite::UserData& userData);
+	void DrawLimb(nite::UserTracker* pUserTracker, const nite::SkeletonJoint& joint1, const nite::SkeletonJoint& joint2, int color);
 
 public:
 	SampleViewer(const SampleViewer&);
@@ -38,6 +44,7 @@ public:
 	SampleViewer();
 	char m_error[300];
 	nite::UserTracker* m_pUserTracker;
+	void updateUserState(const nite::UserData& user, uint64_t ts);
 
 private:	
 	static SampleViewer* ms_self;

@@ -196,6 +196,7 @@ void CGameApp::OnDestroy()
 		::ReleaseDC(m_hWnd, m_hDC);
 		m_hDC = NULL;
 	}
+	//sampleViewernew.Finalize();
 }
 
 void CGameApp::OnSize(int nType, int nWidth, int nHeight)
