@@ -77,8 +77,10 @@ openni::Status SampleViewer::Init(int argc, char **argv)
 	if (rc != openni::STATUS_OK)
 	{
 		printf("Failed to initialize OpenNI\n%s\n", openni::OpenNI::getExtendedError());
+		sprintf(m_error,"Failed to initialize OpenNI: %s\n", openni::OpenNI::getExtendedError());
 		return rc;
 	}
+	sprintf(m_error,"Initialize OpenNI");
 
 	const char* deviceUri = openni::ANY_DEVICE;
 	for (int i = 1; i < argc-1; ++i)

@@ -1,5 +1,9 @@
-﻿Build started 19/04/2013 20:32:08.
+﻿Build started 20/04/2013 02:29:39.
+     1>Project "c:\Users\alex\Documents\My Box Files\src\spaceapps\overview\AtmosphereTest.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file ".\Debug\AtmosphereTest.lastbuildstate".
+     1>Done Building Project "c:\Users\alex\Documents\My Box Files\src\spaceapps\overview\AtmosphereTest.vcxproj" (clean target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.06
+Time Elapsed 00:00:00.10

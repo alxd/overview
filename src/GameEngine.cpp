@@ -321,7 +321,7 @@ void CGameEngine::RenderFrame(int nMilliseconds)
 	sprintf(szBuffer, "Blue (F11/Sh+F11): %-3.3f", m_fWavelength[2]);
 	m_fFont.Print(szBuffer);
 */
-
+	m_fFont.Print(sampleViewer->m_error);
 	//sampleViewer->Display();
 
 	m_fFont.End();

@@ -36,6 +36,7 @@ public:
 	SampleViewer(const SampleViewer&);
 	SampleViewer& operator=(SampleViewer&);
 	SampleViewer();
+	char m_error[300];
 private:	
 	static SampleViewer* ms_self;
 	static void glutIdle();
