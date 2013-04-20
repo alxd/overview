@@ -37,6 +37,8 @@ public:
 	SampleViewer& operator=(SampleViewer&);
 	SampleViewer();
 	char m_error[300];
+	nite::UserTracker* m_pUserTracker;
+
 private:	
 	static SampleViewer* ms_self;
 	static void glutIdle();
@@ -50,7 +52,6 @@ private:
 	unsigned int		m_nTexMapY;
 
 	openni::Device		m_device;
-	nite::UserTracker* m_pUserTracker;
 
 	nite::UserId m_poseUser;
 	uint64_t m_poseTime;

@@ -322,10 +322,14 @@ void CGameEngine::RenderFrame(int nMilliseconds)
 	m_fFont.Print(szBuffer);
 */
 	m_fFont.Print(sampleViewer->m_error);
-	//sampleViewer->Display();
-
 	m_fFont.End();
 	glFlush();
+
+	//sampleViewer->Display();
+	//nite::UserTrackerFrameRef userTrackerFrame;
+	//openni::VideoFrameRef depthFrame;
+	//nite::Status rc = sampleViewer->m_pUserTracker->readFrame(&userTrackerFrame);
+
 }
 
 void CGameEngine::OnChar(WPARAM c)

@@ -35,6 +35,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #define _DEBUG 1
 
 CWinApp *CWinApp::m_pMainApp;
+SampleViewer sampleViewernew("User Viewer");
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char *pszCmdLine, int nShowCmd)
 {
@@ -159,7 +160,6 @@ int CGameApp::OnCreate(HWND hWnd)
 		// openNI here
 
 		openni::Status rc = openni::STATUS_OK;
-		SampleViewer sampleViewernew("User Viewer");
 
 		char *argv[2]; 
 		rc = sampleViewernew.Init(1, argv); // no arguments
