@@ -46,6 +46,7 @@ typedef struct {
 }t;
 
 void PlayWav(void * param);
+void PlayWavLoop(void * param);
 
 CGameEngine::CGameEngine(SampleViewer * s)
 {
@@ -111,7 +112,7 @@ CGameEngine::CGameEngine(SampleViewer * s)
 	sprintf(arg1->wavFile, "media/white_16.wav");
 	_beginthread(	PlayWavLoop, 0, (void*) arg1);
 
-	sprintf(arg2->wavFile, "media/bass_extend_loop_4.wav");
+	sprintf(arg2->wavFile, "media/bass_808_1.wav");
 	_beginthread(	PlayWavLoop, 0, (void*) arg2);
 
 }
@@ -546,17 +547,20 @@ void PlayWavLoop(void * param)
 	// Attach Source to Buffer
 	alSourcei( uiSource, AL_BUFFER, uiBuffer );
 
-	// Play Source
-    alSourcePlay( uiSource );
-	sprintf(g_ALError, "Playing Source ");
-		
-	do
-	{
-		Sleep(100);
-		// Get Source State
-		alGetSourcei( uiSource, AL_SOURCE_STATE, &iState);
-	} while (iState == AL_PLAYING);
+	while (true) { // loop forever
 
+		// Play Source
+		alSourcePlay( uiSource );
+		sprintf(g_ALError, "Playing Source ");
+		
+		do
+		{
+			Sleep(100);
+			// Get Source State
+			alGetSourcei( uiSource, AL_SOURCE_STATE, &iState);
+		} while (iState == AL_PLAYING);
+	
+	}
 	// Clean up by deleting Source(s) and Buffer(s)
 	alSourceStop(uiSource);
     alDeleteSources(1, &uiSource);
