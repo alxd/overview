@@ -19,6 +19,9 @@
     <Filter Include="Header Files\nite">
       <UniqueIdentifier>{3d27cd3b-9d57-4c77-ba06-72009063abb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ALFramework">
+      <UniqueIdentifier>{fa70f358-a02f-47ba-a985-16884a05bcc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AtmosphereTest.rc">
@@ -101,6 +104,18 @@
     <ClInclude Include="include\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ALFramework\aldlist.h">
+      <Filter>Header Files\ALFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="ALFramework\CWaves.h">
+      <Filter>Header Files\ALFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="ALFramework\Framework.h">
+      <Filter>Header Files\ALFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="ALFramework\LoadOAL.h">
+      <Filter>Header Files\ALFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="icon1.ico">
@@ -134,6 +149,18 @@
     </ClCompile>
     <ClCompile Include="src\Viewer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ALFramework\aldlist.cpp">
+      <Filter>Header Files\ALFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="ALFramework\CWaves.cpp">
+      <Filter>Header Files\ALFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="ALFramework\Framework.cpp">
+      <Filter>Header Files\ALFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="ALFramework\LoadOAL.cpp">
+      <Filter>Header Files\ALFramework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

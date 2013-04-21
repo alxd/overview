@@ -33,6 +33,19 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "GameEngine.h"
 #include "GLUtil.h"
 #include "Viewer.h"
+#include <process.h> 
+ 
+#include"../ALFramework/Framework.h"
+
+char	WHITE_WAVE_FILE[30];
+char g_ALError[100];
+
+typedef struct {
+   char wavFile[30];
+   int data2;
+}t;
+
+void PlayWav(void * param);
 
 CGameEngine::CGameEngine(SampleViewer * s)
 {
@@ -79,11 +92,36 @@ CGameEngine::CGameEngine(SampleViewer * s)
 	skip = jointIdx = 0;
 //	float initialH_x, initialHR_x;
 //	float initialH_z, initialHR_z;
+
+	// Initialize Framework
+	ALFWInit();
+
+	ALFWprintf("PlayStatic Test Application\n");
+
+	if (!ALFWInitOpenAL())
+	{
+		sprintf(g_ALError, "Failed to initialize OpenAL\n");
+		ALFWShutdown();
+	}
+
+	// http://stackoverflow.com/questions/3169009/passing-arguments-to-beginthread-whats-wrong
+	t *arg1, *arg2;
+	arg1 = (t *)malloc(sizeof(t));
+	arg2 = (t *)malloc(sizeof(t));
+	sprintf(arg1->wavFile, "media/white_16.wav");
+	_beginthread(	PlayWavLoop, 0, (void*) arg1);
+
+	sprintf(arg2->wavFile, "media/bass_extend_loop_4.wav");
+	_beginthread(	PlayWavLoop, 0, (void*) arg2);
+
 }
 
 CGameEngine::~CGameEngine()
 {
 	GLUtil()->Cleanup();
+
+	ALFWShutdownOpenAL();
+	ALFWShutdown();
 }
 
 void CGameEngine::SetColor(SVertex *pVertex)
@@ -384,7 +422,7 @@ if (rc != nite::STATUS_OK)
 		skip = 1;
 
 
-	if (users.getSize() > 0)
+	if (users.getSize() > 0 && skipAmount > 0)
 {
 		if (jointIdx < 500) {
 			jointIdx++;
@@ -449,7 +487,7 @@ if (rc != nite::STATUS_OK)
 			}
 		}	
 
-		if (abs(x - initialRH_x) > 100)
+		if (abs(x - initialRH_x) < 100)
 			if (initialRH_x > x)
 				handRight = true;
 			else
@@ -458,6 +496,9 @@ if (rc != nite::STATUS_OK)
 
 	}
 	
+
+	//PlayWav(WHITE_WAVE_FILE);
+
 	m_fFont.SetPosition(0, 30);
 	sprintf(szBuffer, "initialH_x: %.1f  x:%.1f   diff X: %d   dif Z:", initialRH_x, x, abs(x - initialRH_x), abs(z - initialRH_z));
 	m_fFont.Print(szBuffer);
@@ -465,10 +506,107 @@ if (rc != nite::STATUS_OK)
 	m_fFont.SetPosition(0, 45);	
 	sprintf(szBuffer, "Users: %d  hf:%d hb:%d hl:%d hr:%d hal:%d har:%d skAmount: %d    skip: %d ", users.getSize(), headFront, headBack, headLeft, headRight, handLeft, handRight, skipAmount, skip);
 	m_fFont.Print(szBuffer);
+
+	m_fFont.SetPosition(0, 60);	
+	m_fFont.Print(g_ALError);
+
+
 	m_fFont.End();
 	glFlush();
 
 
+
+}
+
+void PlayWavLoop(void * param)
+{
+	ALuint      uiBuffer;
+	ALuint      uiSource;
+	ALint       iState;
+
+	t *args = (t*) param;
+   char sound[30];
+   sprintf(sound, args->wavFile);
+   //int y = args->data2;
+   free(args);
+   
+	// Generate an AL Buffer
+	alGenBuffers( 1, &uiBuffer );
+
+	// Load Wave file into OpenAL Buffer
+	if (!ALFWLoadWaveToBuffer(sound, uiBuffer))
+	{
+		sprintf(g_ALError, "Failed to load %s\n", sound);
+		return;
+	}
+
+	// Generate a Source to playback the Buffer
+    alGenSources( 1, &uiSource );
+
+	// Attach Source to Buffer
+	alSourcei( uiSource, AL_BUFFER, uiBuffer );
+
+	// Play Source
+    alSourcePlay( uiSource );
+	sprintf(g_ALError, "Playing Source ");
+		
+	do
+	{
+		Sleep(100);
+		// Get Source State
+		alGetSourcei( uiSource, AL_SOURCE_STATE, &iState);
+	} while (iState == AL_PLAYING);
+
+	// Clean up by deleting Source(s) and Buffer(s)
+	alSourceStop(uiSource);
+    alDeleteSources(1, &uiSource);
+	alDeleteBuffers(1, &uiBuffer);
+
+}
+
+void PlayWav(void * param)
+{
+	ALuint      uiBuffer;
+	ALuint      uiSource;
+	ALint       iState;
+
+	t *args = (t*) param;
+   char sound[30];
+   sprintf(sound, args->wavFile);
+   //int y = args->data2;
+   free(args);
+   
+	// Generate an AL Buffer
+	alGenBuffers( 1, &uiBuffer );
+
+	// Load Wave file into OpenAL Buffer
+	if (!ALFWLoadWaveToBuffer(sound, uiBuffer))
+	{
+		sprintf(g_ALError, "Failed to load %s\n", sound);
+		return;
+	}
+
+	// Generate a Source to playback the Buffer
+    alGenSources( 1, &uiSource );
+
+	// Attach Source to Buffer
+	alSourcei( uiSource, AL_BUFFER, uiBuffer );
+
+	// Play Source
+    alSourcePlay( uiSource );
+	sprintf(g_ALError, "Playing Source ");
+		
+	do
+	{
+		Sleep(100);
+		// Get Source State
+		alGetSourcei( uiSource, AL_SOURCE_STATE, &iState);
+	} while (iState == AL_PLAYING);
+
+	// Clean up by deleting Source(s) and Buffer(s)
+	alSourceStop(uiSource);
+    alDeleteSources(1, &uiSource);
+	alDeleteBuffers(1, &uiBuffer);
 
 }
 
@@ -491,6 +629,7 @@ void CGameEngine::OnChar(WPARAM c)
 			break;
 	}
 }
+
 
 void CGameEngine::HandleInput(float fSeconds)
 {

@@ -46,7 +46,7 @@
     <OutDir>.\Debug\</OutDir>
     <IntDir>.\Debug\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>include/; includeOpenni/;includeNite/; openGL/;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath>AL/;ALFramework/;include/; includeOpenni/;includeNite/; openGL/;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <LibraryPath>lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
     <SourcePath>src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
   </PropertyGroup>
@@ -129,13 +129,17 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OutputFile>.\Debug\AtmosphereTest.exe</OutputFile>
-      <AdditionalDependencies>OpenNI2.lib; NiTE2.lib;glut32.lib; winmm.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenAL32.lib;OpenNI2.lib; NiTE2.lib;glut32.lib; winmm.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ResourceCompile Include="AtmosphereTest.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ALFramework\aldlist.h" />
+    <ClInclude Include="ALFramework\CWaves.h" />
+    <ClInclude Include="ALFramework\Framework.h" />
+    <ClInclude Include="ALFramework\LoadOAL.h" />
     <ClInclude Include="IncludeNite\NiTE.h" />
     <ClInclude Include="IncludeNite\NiteCAPI.h" />
     <ClInclude Include="IncludeNite\NiteCEnums.h" />
@@ -166,6 +170,10 @@
     <CustomBuild Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ALFramework\aldlist.cpp" />
+    <ClCompile Include="ALFramework\CWaves.cpp" />
+    <ClCompile Include="ALFramework\Framework.cpp" />
+    <ClCompile Include="ALFramework\LoadOAL.cpp" />
     <ClCompile Include="src\GameApp.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GLUtil.cpp" />

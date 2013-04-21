@@ -204,7 +204,6 @@ protected:
 	float initialH_x, initialRH_x;
 	float initialH_z, initialRH_z;
 
-
 public:
 	CGameEngine(SampleViewer * s);
 	~CGameEngine();
@@ -215,6 +214,7 @@ public:
 	void OnChar(WPARAM c);
 
 	void SetColor(SVertex *pVertex);
+	//void PlayWav(void * param);
 };
 
 #endif // __GameEngine_h__
