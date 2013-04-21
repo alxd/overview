@@ -115,6 +115,7 @@ CGameEngine::CGameEngine(SampleViewer * s)
 	sprintf(arg2->wavFile, "media/bass_808_1.wav");
 	_beginthread(	PlayWavLoop, 0, (void*) arg2);
 
+	startFly = false;
 }
 
 CGameEngine::~CGameEngine()
@@ -459,28 +460,41 @@ if (rc != nite::STATUS_OK)
 			}
 		}
 
-		#define THRUST		1.0f	// Acceleration rate due to thrusters (units/s*s)
-		#define RESISTANCE	0.1f	// Damping effect on velocity
 
-		float fThrust = THRUST;
+		#define RESISTANCE	0.1f	// Damping effect on velocity
+		float fThrust = 0.7f;		// Acceleration rate due to thrusters (units/s*s)
 		float fSeconds = 1.0f;
+		float fSecondsRot = 0.002f;
 
 		int distance = 200;
 
+		if (startFly) {
+			m_3DCamera.m_vVelocity;
+			if (goingIn)
+				m_3DCamera.Rotate(m_3DCamera.GetRightAxis(), fSecondsRot * 1);
+			else
+				m_3DCamera.Rotate(m_3DCamera.GetRightAxis(), fSecondsRot * -1);
+		}
+
 		CVector vAccel(0.0f);
 		if (abs(z - initialH_z) > distance) {
+			startFly = true;
 			if (initialH_z > z) {
 				headFront = true;
+				goingIn = true;
 				vAccel += m_3DCamera.GetViewAxis() * fThrust;
+		
 			}
 			else {
 				headBack = true;
-				vAccel += m_3DCamera.GetViewAxis() * -fThrust;
+				goingIn = false;
+				vAccel += m_3DCamera.GetViewAxis() * -fThrust;				
 			}
 
 			initialH_z = z;
 
 			m_3DCamera.Accelerate(vAccel, fSeconds, RESISTANCE);
+
 			CVector vPos = m_3DCamera.GetPosition();
 			float fMagnitude = vPos.Magnitude();
 			if(fMagnitude < m_fInnerRadius)
@@ -503,7 +517,7 @@ if (rc != nite::STATUS_OK)
 			else
 				headLeft = true;
 
-		sprintf(szBuffer, "initialH_x: %.1f  x:%.1f diff X: %d   dif Z:", initialH_x, x, abs(x - initialH_x), abs(z - initialH_z));
+		sprintf(szBuffer, "initialH_x: %.1f  x:%.1f ", initialH_x, x);
 		m_fFont.Print(szBuffer);
 
 
@@ -533,15 +547,16 @@ if (rc != nite::STATUS_OK)
 	//PlayWav(WHITE_WAVE_FILE);
 
 	m_fFont.SetPosition(0, 30);
-	sprintf(szBuffer, "initialH_x: %.1f  x:%.1f   diff X: %d   dif Z:", initialRH_x, x, abs(x - initialRH_x), abs(z - initialRH_z));
+	sprintf(szBuffer, "initialH_z: %.1f  z:%.1f   ", initialH_z, z);
 	m_fFont.Print(szBuffer);
 
 	m_fFont.SetPosition(0, 45);	
-	sprintf(szBuffer, "Users: %d  hf:%d hb:%d hl:%d hr:%d hal:%d har:%d skAmount: %d    skip: %d ", users.getSize(), headFront, headBack, headLeft, headRight, handLeft, handRight, skipAmount, skip);
+	//sprintf(szBuffer, "Users: %d  hf:%d hb:%d hl:%d hr:%d hal:%d har:%d skAmount: %d    v: %.3f ", users.getSize(), headFront, headBack, headLeft, headRight, handLeft, handRight, skipAmount, m_3DCamera.m_vVelocity.Magnitude());
+	sprintf(szBuffer, "Users: %d  hf:%d hb:%d   v: %.3f ", users.getSize(), headFront, headBack, m_3DCamera.m_vVelocity.Magnitude());
 	m_fFont.Print(szBuffer);
 
 	m_fFont.SetPosition(0, 60);	
-	m_fFont.Print(g_ALError);
+//	m_fFont.Print(g_ALError);
 
 
 	m_fFont.End();
@@ -732,8 +747,7 @@ void CGameEngine::HandleInput(float fSeconds)
 		m_3DCamera.Rotate(m_3DCamera.GetUpAxis(), fSeconds * -ROTATE_SPEED);
 	if((GetKeyState(VK_NUMPAD4) & 0x8000) || (GetKeyState(VK_LEFT) & 0x8000))
 		m_3DCamera.Rotate(m_3DCamera.GetUpAxis(), fSeconds * ROTATE_SPEED);
-
-	// Turn up/down means rotate around the right axis
+		// Turn up/down means rotate around the right axis
 	if((GetKeyState(VK_NUMPAD8) & 0x8000) || (GetKeyState(VK_UP) & 0x8000))
 		m_3DCamera.Rotate(m_3DCamera.GetRightAxis(), fSeconds * -ROTATE_SPEED);
 	if((GetKeyState(VK_NUMPAD2) & 0x8000) || (GetKeyState(VK_DOWN) & 0x8000))

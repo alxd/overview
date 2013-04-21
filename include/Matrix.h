@@ -1015,9 +1015,9 @@ protected:
 	float m_fBoundingRadius;	// The object's bounding radius
 	float m_fMass;				// The object's mass (kg)
 	CDoubleVector m_vPosition;	// The object's position (km)
-	CVector m_vVelocity;		// The object's velocity (km/s)
 
 public:
+	CVector m_vVelocity;		// The object's velocity (km/s)
 	C3DObject() : CQuaternion(0.0f, 0.0f, 0.0f, 1.0f), m_vPosition(0.0f), m_vVelocity(0.0f)
 	{
 		m_fMass = 0.0f;

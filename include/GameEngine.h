@@ -197,7 +197,7 @@ protected:
 	CSphere m_sphereOuter;
 	SampleViewer * sampleViewer;
 
-	bool initial, headFront, headBack, headLeft, headRight, handLeft, handRight;
+	bool initial, headFront, headBack, headLeft, headRight, handLeft, handRight, goingIn, startFly;
 	int skip, jointIdx;
 
 	nite::SkeletonJoint jointHistoryH[1000], jointHistoryRH[1000];
