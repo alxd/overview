@@ -91,8 +91,7 @@ CGameEngine::CGameEngine(SampleViewer * s)
 	headFront = headBack = headLeft = headRight = handLeft = handRight = false;
 
 	skip = jointIdx = 0;
-//	float initialH_x, initialHR_x;
-//	float initialH_z, initialHR_z;
+	float initialH_x = initialRH_x = initialH_z = initialRH_z = 0;
 
 	// Initialize Framework
 	ALFWInit();
@@ -106,12 +105,13 @@ CGameEngine::CGameEngine(SampleViewer * s)
 	}
 
 	// http://stackoverflow.com/questions/3169009/passing-arguments-to-beginthread-whats-wrong
-	t *arg1, *arg2;
-	arg1 = (t *)malloc(sizeof(t));
-	arg2 = (t *)malloc(sizeof(t));
+	t *arg1;
+	arg1 = (t *)malloc(sizeof(t));	
 	sprintf(arg1->wavFile, "media/white_16.wav");
 	_beginthread(	PlayWavLoop, 0, (void*) arg1);
 
+	t *arg2;
+	arg2 = (t *)malloc(sizeof(t));
 	sprintf(arg2->wavFile, "media/bass_808_1.wav");
 	_beginthread(	PlayWavLoop, 0, (void*) arg2);
 
@@ -459,11 +459,43 @@ if (rc != nite::STATUS_OK)
 			}
 		}
 
-		if (abs(z - initialH_z) > 100)
-			if (initialH_z > z)
+		#define THRUST		1.0f	// Acceleration rate due to thrusters (units/s*s)
+		#define RESISTANCE	0.1f	// Damping effect on velocity
+
+		float fThrust = THRUST;
+		float fSeconds = 1.0f;
+
+		int distance = 200;
+
+		CVector vAccel(0.0f);
+		if (abs(z - initialH_z) > distance) {
+			if (initialH_z > z) {
 				headFront = true;
-			else
+				vAccel += m_3DCamera.GetViewAxis() * fThrust;
+			}
+			else {
 				headBack = true;
+				vAccel += m_3DCamera.GetViewAxis() * -fThrust;
+			}
+
+			initialH_z = z;
+
+			m_3DCamera.Accelerate(vAccel, fSeconds, RESISTANCE);
+			CVector vPos = m_3DCamera.GetPosition();
+			float fMagnitude = vPos.Magnitude();
+			if(fMagnitude < m_fInnerRadius)
+			{
+				vPos *= (m_fInnerRadius * (1 + DELTA)) / fMagnitude;
+				m_3DCamera.SetPosition(CDoubleVector(vPos.x, vPos.y, vPos.z));
+				m_3DCamera.SetVelocity(-m_3DCamera.GetVelocity());
+			}
+
+			t *arg1;
+			arg1 = (t *)malloc(sizeof(t));	
+			sprintf(arg1->wavFile, "media/space_chord_1.wav");
+			_beginthread(	PlayWav, 0, (void*) arg1);
+			
+		}
 
 		if (abs(x - initialH_x) > 100)
 			if (initialH_x > x)
@@ -708,9 +740,9 @@ void CGameEngine::HandleInput(float fSeconds)
 		m_3DCamera.Rotate(m_3DCamera.GetRightAxis(), fSeconds * ROTATE_SPEED);
 
 	// Roll means rotate around the view axis
-	if(GetKeyState(VK_NUMPAD7) & 0x8000)
+	if(GetKeyState(VK_F1) & 0x8000)
 		m_3DCamera.Rotate(m_3DCamera.GetViewAxis(), fSeconds * -ROTATE_SPEED);
-	if(GetKeyState(VK_NUMPAD9) & 0x8000)
+	if(GetKeyState(VK_F2) & 0x8000)
 		m_3DCamera.Rotate(m_3DCamera.GetViewAxis(), fSeconds * ROTATE_SPEED);
 
 #define THRUST		1.0f	// Acceleration rate due to thrusters (units/s*s)
